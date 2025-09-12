@@ -1,0 +1,72 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+/*===========================================================================
+	Generated code exported from UnrealHeaderTool.
+	DO NOT modify this manually! Edit the corresponding .h files instead!
+===========================================================================*/
+
+// IWYU pragma: private, include "QuestSystemBlueprintFunctionLibrary.h"
+#include "UObject/ObjectMacros.h"
+#include "UObject/ScriptMacros.h"
+
+PRAGMA_DISABLE_DEPRECATION_WARNINGS
+enum class EQuestState : uint8;
+struct FQuestPayload;
+#ifdef GAMEPLAYQUESTSYSTEM_QuestSystemBlueprintFunctionLibrary_generated_h
+#error "QuestSystemBlueprintFunctionLibrary.generated.h already included, missing '#pragma once' in QuestSystemBlueprintFunctionLibrary.h"
+#endif
+#define GAMEPLAYQUESTSYSTEM_QuestSystemBlueprintFunctionLibrary_generated_h
+
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_SPARSE_DATA
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_RPC_WRAPPERS_NO_PURE_DECLS \
+ \
+	DECLARE_FUNCTION(execSendQuestEvent);
+
+
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_ACCESSORS
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_INCLASS_NO_PURE_DECLS \
+private: \
+	static void StaticRegisterNativesUQuestSystemBlueprintFunctionLibrary(); \
+	friend struct Z_Construct_UClass_UQuestSystemBlueprintFunctionLibrary_Statics; \
+public: \
+	DECLARE_CLASS(UQuestSystemBlueprintFunctionLibrary, UBlueprintFunctionLibrary, COMPILED_IN_FLAGS(0), CASTCLASS_None, TEXT("/Script/GameplayQuestSystem"), NO_API) \
+	DECLARE_SERIALIZER(UQuestSystemBlueprintFunctionLibrary)
+
+
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_ENHANCED_CONSTRUCTORS \
+	/** Standard constructor, called after all reflected properties have been initialized */ \
+	NO_API UQuestSystemBlueprintFunctionLibrary(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get()); \
+private: \
+	/** Private move- and copy-constructors, should never be used */ \
+	NO_API UQuestSystemBlueprintFunctionLibrary(UQuestSystemBlueprintFunctionLibrary&&); \
+	NO_API UQuestSystemBlueprintFunctionLibrary(const UQuestSystemBlueprintFunctionLibrary&); \
+public: \
+	DECLARE_VTABLE_PTR_HELPER_CTOR(NO_API, UQuestSystemBlueprintFunctionLibrary); \
+	DEFINE_VTABLE_PTR_HELPER_CTOR_CALLER(UQuestSystemBlueprintFunctionLibrary); \
+	DEFINE_DEFAULT_OBJECT_INITIALIZER_CONSTRUCTOR_CALL(UQuestSystemBlueprintFunctionLibrary) \
+	NO_API virtual ~UQuestSystemBlueprintFunctionLibrary();
+
+
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_22_PROLOG
+#define FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_GENERATED_BODY \
+PRAGMA_DISABLE_DEPRECATION_WARNINGS \
+public: \
+	FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_SPARSE_DATA \
+	FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS \
+	FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_ACCESSORS \
+	FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_INCLASS_NO_PURE_DECLS \
+	FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h_25_ENHANCED_CONSTRUCTORS \
+private: \
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
+
+
+template<> GAMEPLAYQUESTSYSTEM_API UClass* StaticClass<class UQuestSystemBlueprintFunctionLibrary>();
+
+#undef CURRENT_FILE_ID
+#define CURRENT_FILE_ID FID_Plugin_Plugin_GameplayQuestSystem_GameplayQuestSystem_HostProject_Plugins_GameplayQuestSystem_Source_GameplayQuestSystem_Public_QuestSystemBlueprintFunctionLibrary_h
+
+
+PRAGMA_ENABLE_DEPRECATION_WARNINGS
