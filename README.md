@@ -1,4 +1,4 @@
-# Gameplay Quest System 
+# Plugin: Gameplay Quest System 
 
 A lightweight, Blueprint-friendly quest framework for Unreal Engine 5 that centralizes quest flow and event handling so designers can focus on gameplay, not plumbing.
 
