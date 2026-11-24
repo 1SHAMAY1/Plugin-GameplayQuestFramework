@@ -1,99 +1,114 @@
-# Plugin: Gameplay Quest System 
+# Gameplay Quest System for Unreal Engine 5
 
-A lightweight, Blueprint-friendly quest framework for Unreal Engine 5 that centralizes quest flow and event handling so designers can focus on gameplay, not plumbing.
+[![Unreal Engine](https://img.shields.io/badge/Unreal%20Engine-5.3-blue?logo=unrealengine&logoColor=white)](https://www.unrealengine.com/)
+[![Pre-Compiled](https://img.shields.io/badge/Binaries-Win64%20Pre--Compiled%20Included-brightgreen)](README.md)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Author](https://img.shields.io/badge/Author-Shankharaj%20Datta-blue?logo=linkedin)](https://www.linkedin.com/in/shankharaj-datta-45921a28a/)
+[![Workflow](https://img.shields.io/badge/Workflow-100%25%20Blueprint--Friendly-orange)](#blueprint-workflow-quickstart)
+[![Architecture](https://img.shields.io/badge/Architecture-Event--Driven%20Subsystem-brightgreen)](#system-architecture)
 
----
+A lightweight, designer-friendly, event-driven quest framework for Unreal Engine 5 (UE 5.3). Built from the ground up to centralize quest state management and eliminate hard asset references between mission logic and gameplay actors.
 
-## ✨ Features
-- **Centralized Quest Flow** via `UGameplayQuestBase`
-- **Three Core Native Events** to override in your Quest BP:
-  - `Start Quest`
-  - `Complete Quest`
-  - `Reset Quest`
-- **Quest Manager Subsystem** as the **central hub** for all quest registration, event flow, and tracking
-- **Event-Driven with Gameplay Tags**: broadcast and respond to tagged gameplay events instead of hard references
-- **Designer-First**: 100% Blueprint workflow, no C++ required
+> [!TIP]
+> **Zero Compilation Required for Blueprint Users**: Pre-compiled Win64 editor binaries (`.dll` + `.modules`) are included in the repository. Drop into `Plugins/` and start creating quests immediately!
 
 ---
 
-## 🚀 Blueprint Workflow (Quick Start)
+## ✨ Features & Architectural Highlights
 
-1. **Create Your Quest Blueprint**
-   - Inherit from `UGameplayQuestBase` (e.g., `BP_MyQuest`).
-   - Override the **native events** in Blueprint:
-     - `Start Quest` → Called when quest is activated.
-     - `Complete Quest` → Called when quest finishes.
-     - `Reset Quest` → Called when quest restarts/clears.
-   - Add quest-specific variables (e.g., target count, objectives).
-
-2. **Activate (Register) the Quest**
-   - Anywhere in your game (UI button, overlap, narrative cue):
-     - **Get Game Instance Subsystem → Gameplay Quest Manager Subsystem**
-     - Call **Register Quest** with your Quest Class (e.g., `BP_MyQuest`).
-     - Store the returned **Quest Ref**.
-
-3. **Start the Quest**
-   - Call **Start Quest** on the Quest Ref to trigger its logic.
-
-4. **Broadcast Gameplay Events**
-   - From gameplay systems (pickups, combat, triggers):
-     - Call **Broadcast Quest Event** on the **Quest Manager Subsystem**.
-     - Provide a **Gameplay Tag** (e.g., `Event.Item.Collected`).
-     - Optionally pass data (e.g., actor, name, int).
-
-5. **Quest Responds to Events**
-   - In your Quest BP (`BP_MyQuest`):
-     - Use **Switch on Gameplay Tag** inside the event listener.
-     - Example:
-       - `Event.Item.Collected` → Increment item count.
-       - `Event.Enemy.Defeated` → Mark boss defeated.
-
-6. **Complete or Reset**
-   - When objectives are done → Call **Complete Quest**.
-   - To replay/reset → Call **Reset Quest**.
-   - Subsystem updates global state and notifies listeners.
+- 🎯 **Centralized Quest Flow via `UGameplayQuestBase`**: Modular quest actors with clean lifecycle hooks.
+- ⚡ **Three Core Native Overrides**:
+  - `Start Quest` — Triggered when a quest is registered/activated.
+  - `Complete Quest` — Called when all objective conditions are satisfied; handles rewards and state progression.
+  - `Reset Quest` — Reverts progress cleanly for repeatable or failed quests.
+- 🏛️ **Game Instance Subsystem Hub (`UGameplayQuestSubsystem`)**: Global registration, persistence across level streaming, and event distribution.
+- 🏷️ **Tag-Driven Event Dispatching**: World actors broadcast loose `GameplayTags` (`Event.Item.Collected`, `Event.Enemy.Defeated`), decoupling quests from specific enemy or item classes.
+- 🎨 **Designer-First**: 100% Blueprint-compatible with custom async latent actions (`QuestAsyncListen`, `QuestAsyncRegister`).
 
 ---
 
-## 🧭 Example Flow (Blueprint Pseudograph)
+## 🏛️ System Architecture
 
-- **Trigger (UI/Overlap/BeginPlay)**  
-  → Register Quest (`BP_MyQuest`)  
-  → Start Quest  
+```mermaid
+sequenceDiagram
+    autonumber
+    participant World as World Actor / Trigger / Enemy
+    participant Subsystem as Gameplay Quest Subsystem
+    participant Quest as Quest Blueprint (UGameplayQuestBase)
+    participant UI as UI Journal / HUD
 
-- **Gameplay Producer (e.g., Pickup Actor)**  
-  → Broadcast Quest Event (Tag: `Event.Item.Collected`)  
+    Note over Subsystem,Quest: Quest Activation
+    World->>Subsystem: RegisterQuest(BP_MyQuest)
+    Subsystem->>Quest: Start Quest
+    Quest->>UI: Display Quest Objective
 
-- **Quest BP (`BP_MyQuest`)**  
-  - `Start Quest` → Show UI objective  
-  - Switch on Gameplay Tag:  
-    - `Event.Item.Collected` → Update progress; if target reached → `Complete Quest`  
-  - `Complete Quest` → Reward player, update journal  
-  - `Reset Quest` → Clear progress, hide UI  
+    Note over World,Subsystem: Event-Driven Objective Progression
+    World->>Subsystem: BroadcastQuestEvent("Event.Item.Collected", Payload)
+    Subsystem->>Quest: OnQuestEventDispatched(Tag, Payload)
+    Quest->>Quest: Switch on GameplayTag -> Update Counter
 
----
-
-## 🧪 Sample Project
-Try the **sample UE5 project** that demonstrates the plugin in action:  
-👉 [Sample UE5 Quest System Project]([https://github.com/yourusername/QuestSystemSample](https://drive.google.com/drive/folders/1N2vbHkmcZg7wRXJsU60csybFuRw8tn6X?usp=sharing))  
-
-> ⚠️ Requires **Unreal Engine 5.3+** and the **Gameplay Tags plugin enabled**.
-
----
-
-## 🔧 Tips
-- Keep **event tags consistent** (e.g., `Event.Item.Collected`, `Event.Enemy.Defeated`).
-- The **Quest Manager Subsystem** is the **single source of truth** — all events go through it.
-- Use the three **native events** (`Start Quest`, `Complete Quest`, `Reset Quest`) to tailor quest logic in Blueprint.
+    Note over Quest,Subsystem: Completion
+    Quest->>Subsystem: CompleteQuest()
+    Subsystem->>UI: Show "Quest Completed" & Grant Rewards
+```
 
 ---
 
-## 🔒 Requirements
-- Unreal Engine **5.3+**
-- **Gameplay Tags plugin** enabled
-- Fully Blueprint-compatible
+## 🚀 Blueprint Workflow (Quickstart)
+
+### 1. Create Your Quest Blueprint
+1. Right-click in the Content Browser > **Blueprint Class**.
+2. Expand **All Classes**, search for and select `GameplayQuestBase` (e.g., `BP_FetchApplesQuest`).
+3. Open your new blueprint and override the three native events:
+   - **`Start Quest`** → Initialize target counters, play dialogue, or add an objective widget.
+   - **`Complete Quest`** → Grant rewards, play fanfare, advance storyline.
+   - **`Reset Quest`** → Clear progress or reset checkpoints.
+
+### 2. Register & Start the Quest
+Anywhere in your game (NPC interaction, dialog tree, level trigger):
+```text
+Get Game Instance Subsystem (GameplayQuestSubsystem)
+  └── Call "Register Quest" [Quest Class: BP_FetchApplesQuest]
+        └── Call "Start Quest" on the returned Quest Reference
+```
+
+### 3. Broadcast World Events
+When a player collects an item, defeats an enemy, or enters a trigger volume:
+```text
+Get Game Instance Subsystem (GameplayQuestSubsystem)
+  └── Call "Broadcast Quest Event"
+        ├── Event Tag: "Event.Item.Collected"
+        └── Payload: Actor / Quantity / Custom Data
+```
+
+### 4. Respond to Events in Your Quest BP
+Inside your quest blueprint:
+- Bind to quest event callbacks or implement custom tag evaluation.
+- Use **Switch on Gameplay Tag** to route logic cleanly without casting to world actors.
 
 ---
 
-## 📜 License
-MIT — see `LICENSE`.
+## 📋 Requirements & Compatibility
+
+| Requirement | Specification |
+| :--- | :--- |
+| **Engine Version** | Unreal Engine 5.3 |
+| **Required Plugins** | `GameplayTags` (Enabled by default in UE5) |
+| **Target Platforms** | Win64 (Tested and Verified) |
+| **Binaries** | Pre-compiled Win64 editor DLLs included |
+
+---
+
+## 📥 Sample Project Showcase
+
+A fully configured sample project demonstrating quest givers, collect objectives, kill counters, and UI journal integration is available:
+
+👉 **[Download Sample Quest System Project (Google Drive)](https://drive.google.com/drive/folders/1N2vbHkmcZg7wRXJsU60csybFuRw8tn6X?usp=sharing)**
+
+---
+
+## 📄 License & Attribution
+
+Distributed under the **MIT License**. See [LICENSE](LICENSE) for details.
+
+Created by **[Shankharaj Datta](https://www.linkedin.com/in/shankharaj-datta-45921a28a/)**.
