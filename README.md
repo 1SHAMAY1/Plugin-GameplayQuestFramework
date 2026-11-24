@@ -10,7 +10,7 @@
 A lightweight, designer-friendly, event-driven quest framework for Unreal Engine 5 (UE 5.3). Built from the ground up to centralize quest state management and eliminate hard asset references between mission logic and gameplay actors.
 
 > [!TIP]
-> **Zero Compilation Required for Blueprint Users**: Pre-compiled Win64 editor binaries (`.dll` + `.modules`) are included in the repository. Drop into `Plugins/` and start creating quests immediately!
+> **Zero Compilation Required for Blueprint Users**: Pre-compiled Win64 editor binaries (`.dll` + `.modules`) are included in the repository. Simply copy the `5.3/GameplayQuestSystem` folder into your project's `Plugins/` directory and start creating quests immediately!
 
 ---
 
@@ -85,6 +85,22 @@ Get Game Instance Subsystem (GameplayQuestSubsystem)
 Inside your quest blueprint:
 - Bind to quest event callbacks or implement custom tag evaluation.
 - Use **Switch on Gameplay Tag** to route logic cleanly without casting to world actors.
+
+---
+
+## 🛠️ Installation & Setup
+
+1. Copy the inner `5.3/GameplayQuestSystem` folder into your project's `Plugins/` directory:
+   ```text
+   YourProject/
+   └── Plugins/
+       └── GameplayQuestSystem/
+           ├── GameplayQuestSystem.uplugin
+           ├── Binaries/Win64/
+           ├── Resources/
+           └── Source/
+   ```
+2. Enable the plugin under **Edit > Plugins > Gameplay > Gameplay Quest System**.
 
 ---
 
